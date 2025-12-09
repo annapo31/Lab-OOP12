@@ -72,18 +72,12 @@ public class LogicsImpl implements Logics {
      */
     @Override
     public String result() {
-        /*  SISTEMA
         String s = "";
 
         for (final Integer i : list) {
-            s = s.concat(String.valueOf(i)).concat("|");
+           s = s.concat(String.valueOf(i)).concat("|");
         }
-
-
-        this.list.stream()
-            .forEach(i -> s = s.concat(String.valueOf(i)).concat("|"));
-    */
-        return this.list.toString();
+        return s.substring(0, s.length() - 1);
     }
 
     /**
