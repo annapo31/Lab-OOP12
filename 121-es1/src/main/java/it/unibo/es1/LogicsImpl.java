@@ -85,6 +85,16 @@ public class LogicsImpl implements Logics {
      */
     @Override
     public boolean toQuit() {
-        return !this.enabledStates().contains(true);
+        /* Old code
+        final int match = this.list.get(0);
+        for (int i = 1; i < size; i++) {
+            if (match != this.list.get(i)) {
+                return false;
+            }
+        }
+        return true;*/
+
+        return this.list.stream()
+            .allMatch(i -> i.equals(this.list.get(0)));
     }
 }
