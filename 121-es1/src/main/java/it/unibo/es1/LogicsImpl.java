@@ -1,5 +1,7 @@
 package it.unibo.es1;
 
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -7,7 +9,11 @@ import java.util.List;
  */
 public class LogicsImpl implements Logics {
 
-    private static final String ERROR_MESSAGE = "Unimplemented method";
+    //private static final String ERROR_MESSAGE = "Unimplemented method";
+    private static final int INITIAL_STATE = 0;
+
+    private final int size;
+    private final List<Integer> list;
 
     /**
      * Constructor.
@@ -15,7 +21,12 @@ public class LogicsImpl implements Logics {
      * @param size the size of the logics
      */
     public LogicsImpl(final int size) {
-        throw new UnsupportedOperationException(ERROR_MESSAGE);
+        this.size = size;
+        this.list = new LinkedList<>();
+
+        for (int i = 0; i < size; i++) {
+            list.add(INITIAL_STATE);
+        }
     }
 
     /**
@@ -23,7 +34,7 @@ public class LogicsImpl implements Logics {
      */
     @Override
     public int size() {
-        throw new UnsupportedOperationException(ERROR_MESSAGE);
+        return this.size;
     }
 
     /**
@@ -31,7 +42,7 @@ public class LogicsImpl implements Logics {
      */
     @Override
     public List<Integer> values() {
-        throw new UnsupportedOperationException(ERROR_MESSAGE);
+        return Collections.unmodifiableList(this.list);
     }
 
     /**
@@ -39,7 +50,12 @@ public class LogicsImpl implements Logics {
      */
     @Override
     public List<Boolean> enabledStates() {
-        throw new UnsupportedOperationException(ERROR_MESSAGE);
+        final List<Boolean> state = new LinkedList<>();
+
+        for (final Integer i : list) {
+            state.add(i < this.size());
+        }
+        return state;
     }
 
     /**
@@ -47,7 +63,8 @@ public class LogicsImpl implements Logics {
      */
     @Override
     public int hit(final int elem) {
-        throw new UnsupportedOperationException(ERROR_MESSAGE);
+        this.list.set(elem, this.list.get(elem) + 1);
+        return this.list.get(elem);
     }
 
     /**
@@ -55,7 +72,18 @@ public class LogicsImpl implements Logics {
      */
     @Override
     public String result() {
-        throw new UnsupportedOperationException(ERROR_MESSAGE);
+        /*  SISTEMA
+        String s = "";
+
+        for (final Integer i : list) {
+            s = s.concat(String.valueOf(i)).concat("|");
+        }
+
+
+        this.list.stream()
+            .forEach(i -> s = s.concat(String.valueOf(i)).concat("|"));
+    */
+        return this.list.toString();
     }
 
     /**
@@ -63,6 +91,6 @@ public class LogicsImpl implements Logics {
      */
     @Override
     public boolean toQuit() {
-        throw new UnsupportedOperationException(ERROR_MESSAGE);
+        return !this.enabledStates().contains(true);
     }
 }
