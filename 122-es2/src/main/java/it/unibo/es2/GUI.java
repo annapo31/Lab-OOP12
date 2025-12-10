@@ -19,7 +19,7 @@ public final class GUI extends JFrame {
     private final Map<JButton, Pair<Integer, Integer>> buttons = new LinkedHashMap<>();
     private final transient Logics logics;
     // Transient is compulsory, otherwise there'll be a problem
-    // because of serialization
+    // because of serialization.
     // Classe GUI è serializzabile ma contiene logic che non è serializzabile
 
     /**
@@ -44,7 +44,8 @@ public final class GUI extends JFrame {
 
                 // Change of the content of the button
                 button.addActionListener(elem -> {
-                        button.setText(logics.contains(buttonPosition));
+                        button.setText(logics.hit(buttonPosition));
+                        //System.out.println(logics.values().toString());
                     }
                 );
                 panel.add(button);

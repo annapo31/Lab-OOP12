@@ -16,7 +16,7 @@ public interface Logics {
 
     /**
      * The current values for every slot.
-     *
+     * 
      * @return ordered list of the integers in each slot
      */
     List<String> values();
@@ -27,7 +27,7 @@ public interface Logics {
      * @param buttonPosition the button to change
      * @return the new value a button should show after being pressed
      */
-    String contains(Pair<Integer, Integer> buttonPosition);
+    String hit(Pair<Integer, Integer> buttonPosition);
 
     /**
      * True if it is time to quit (i.e., all slots in the same row or column 

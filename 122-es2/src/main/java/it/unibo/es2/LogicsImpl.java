@@ -50,16 +50,20 @@ public class LogicsImpl implements Logics {
      * {@inheritDoc}
      */
     @Override
-    public String contains(final Pair<Integer, Integer> buttonPosition) {
-        final Integer position = buttonPosition.x() * buttonPosition.y();
+    public String hit(final Pair<Integer, Integer> buttonPosition) {
+        // Formula per calcolare posizione in matrice 2x2
+        final Integer position = buttonPosition.x() * size + buttonPosition.y();
 
-        if (BLANCK_SPACE.equals(this.list.get(position))) {
-            this.list.set(position, ASTERISK);
-        } else {
-            this.list.set(position, BLANCK_SPACE);
-        }
-        return this.list.get(position);
+        final String newValue = BLANCK_SPACE.equals(this.list.get(position)) ? ASTERISK : BLANCK_SPACE;
+        this.list.set(position, newValue);
+        return newValue;
     }
+    /* Codice vecchio che dava problemi:
+        return this.list.set(position,
+            BLANCK_SPACE.equals(this.list.get(position)) ? ASTERISK : BLANCK_SPACE);
+        Errore: non ritornava l'elemento corretto alla gui, ma quello precedente,
+        nella lista interna c'erano i valori giusti
+     */
 
     /**
      * {@inheritDoc}
