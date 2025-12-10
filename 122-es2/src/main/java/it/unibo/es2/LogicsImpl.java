@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class LogicsImpl implements Logics {
 
-    private static final String ERROR_MESSAGE = "Unimplemented method";
+    //private static final String ERROR_MESSAGE = "Unimplemented method";
     private static final String ASTERISK = "*";
     private static final String BLANCK_SPACE = " ";
 
@@ -70,7 +70,48 @@ public class LogicsImpl implements Logics {
      */
     @Override
     public boolean toQuit() {
-        throw new IllegalArgumentException(ERROR_MESSAGE);
+        final String[][] matrix = createMatrix();
+        boolean quit = false;
+
+        // Check for the row
+        for (int r = 0; r < size; r++) {
+            // Check the first element of each row
+            String first = matrix[r][0];
+            if(ASTERISK.equals(first)) {
+                quit = true;
+                for (int c = 0; c < size && quit; c++) {
+                    if (!first.equals(matrix[r][c])) {
+                        quit = false;
+                    }
+                }
+            }
+            if (quit) return true;
+        }
+
+        // Check for the columns
+        for (int c = 0; c < size; c++) {
+            // Check the first element of each row
+            String first = matrix[0][c];
+            if(ASTERISK.equals(first)) {
+                quit = true;
+                for (int r = 0; r < size && quit; r++) {
+                    if (!first.equals(matrix[r][c])) {
+                        quit = false;
+                    }
+                }
+            }
+        }
+        return quit;
     }
 
+    private String[][] createMatrix () {
+        final String[][] matrix = new String[size][size];
+
+        for (int r = 0; r < size; r++) {
+            for (int c = 0; c < size; c++) {
+                matrix[r][c] = this.list.get(r * size + c);
+            }
+        }
+        return matrix;
+    }
 }

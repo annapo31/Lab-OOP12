@@ -46,6 +46,9 @@ public final class GUI extends JFrame {
                 button.addActionListener(elem -> {
                         button.setText(logics.hit(buttonPosition));
                         //System.out.println(logics.values().toString());
+                        if (logics.toQuit()) {
+                            this.dispose();
+                        }
                     }
                 );
                 panel.add(button);
