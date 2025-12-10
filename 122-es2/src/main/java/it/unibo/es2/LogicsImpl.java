@@ -71,30 +71,32 @@ public class LogicsImpl implements Logics {
     @Override
     public boolean toQuit() {
         final String[][] matrix = createMatrix();
-        boolean quit = false;
+        boolean quit = true;
 
         // Check for the row
         for (int r = 0; r < size; r++) {
             // Check the first element of each row
-            String first = matrix[r][0];
-            if(ASTERISK.equals(first)) {
+            final String first = matrix[r][0];
+            if (ASTERISK.equals(first)) {
                 quit = true;
-                for (int c = 0; c < size && quit; c++) {
+                for (int c = 1; c < size && quit; c++) {
                     if (!first.equals(matrix[r][c])) {
                         quit = false;
                     }
                 }
             }
-            if (quit) return true;
+            if (quit) {
+                return true;
+            } 
         }
 
         // Check for the columns
         for (int c = 0; c < size; c++) {
-            // Check the first element of each row
-            String first = matrix[0][c];
-            if(ASTERISK.equals(first)) {
+            // Check the first element of each column
+            final String first = matrix[0][c];
+            if (ASTERISK.equals(first)) {
                 quit = true;
-                for (int r = 0; r < size && quit; r++) {
+                for (int r = 1; r < size && quit; r++) {
                     if (!first.equals(matrix[r][c])) {
                         quit = false;
                     }
@@ -104,7 +106,7 @@ public class LogicsImpl implements Logics {
         return quit;
     }
 
-    private String[][] createMatrix () {
+    private String[][] createMatrix() {
         final String[][] matrix = new String[size][size];
 
         for (int r = 0; r < size; r++) {
