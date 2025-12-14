@@ -1,5 +1,8 @@
 package it.unibo.es3;
 
+/**
+ * Interface defining the logic for a slot-based application.
+ */
 public interface Logics {
 
     /**
@@ -10,13 +13,18 @@ public interface Logics {
     int size();
 
     /**
-     * Return the content of a certain cell
+     * Return the content of a certain cell.
      * 
-     * @param x row position
-     * @param y colum position
+     * @param pos position of the cell
      * @return the content of that cell
      */
-    String getContent(int x, int y);
+    String getContent(Pair<Integer, Integer> pos);
+
+    /**
+     * Modify the list to expand *.
+     * 
+     */
+    void hit();
 
     /**
      * True if it is time to quit (i.e., all slots have *).

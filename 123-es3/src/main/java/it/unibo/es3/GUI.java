@@ -18,7 +18,7 @@ public final class GUI extends JFrame {
     @Serial
     private static final long serialVersionUID = 1L;
     private final List<JButton> cells = new ArrayList<>();
-    private final Logics logics;
+    private final transient Logics logics;
 
     /**
      * Constructor.
@@ -37,7 +37,18 @@ public final class GUI extends JFrame {
         final JButton specialButton = new JButton(">");
         this.getContentPane().add(BorderLayout.SOUTH, specialButton);
         specialButton.addActionListener(e -> {
-            System.out.println(logics.toString());
+            //System.out.println(logics.toString());
+            logics.hit();
+            for (int i = 0; i < cells.size(); i++) {
+                // Formula per utilizzare list: 
+                //  / -> per indicare riga
+                //  % -> per indicare la colonna
+                final int x = i / width;
+                final int y = i % width;
+
+                final JButton button = cells.get(i);
+                button.setText(this.logics.getContent(new Pair<>(x, y)));
+            }
             if (logics.toQuit()) {
                 this.dispose();
             }
@@ -46,8 +57,8 @@ public final class GUI extends JFrame {
         // Create buttons and add them to the panel
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < width; j++) {
-                final var pos = new Pair<>(j, i);
-                final JButton button = new JButton(logics.getContent(pos.x(), pos.y()));
+                final var pos = new Pair<>(i, j);
+                final JButton button = new JButton(logics.getContent(pos));
                 this.cells.add(button);
                 /*button.addActionListener(e -> {
                     button.setText(String.valueOf(cells.indexOf(button)));
