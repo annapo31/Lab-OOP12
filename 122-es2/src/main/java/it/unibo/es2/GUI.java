@@ -45,7 +45,7 @@ public final class GUI extends JFrame {
                 // Change of the content of the button
                 button.addActionListener(elem -> {
                         button.setText(logics.hit(buttonPosition));
-                        System.out.println(logics.values().toString());
+                        //System.out.println(logics.values().toString());
                         if (logics.toQuit()) {
                             this.dispose();
                         }
